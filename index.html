@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>极简理财 - 统计页</title>
+  <title>极简理财 - 资产管理</title>
   <base href="/pwa-finance/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,55 +11,52 @@
 </head>
 <body class="bg-gray-50 min-h-screen font-sans text-gray-800">
   <div class="max-w-md mx-auto p-4 space-y-6">
-    <div class="text-xl font-semibold text-blue-600">📊 收支统计</div>
+    <div class="text-xl font-semibold text-blue-600">🏦 资产管理</div>
 
-    <!-- 分类支出图表 -->
+    <!-- 资产分布图 -->
     <div class="bg-white rounded-xl shadow p-4">
-      <div class="text-sm text-gray-500 mb-2">📂 分类支出概览</div>
-      <canvas id="categoryChart" height="160"></canvas>
+      <div class="text-sm text-gray-500 mb-2">💼 资产分布</div>
+      <canvas id="assetPieChart" height="160"></canvas>
     </div>
 
-    <!-- 分类列表 -->
-    <div class="bg-white rounded-xl shadow p-4 space-y-3">
-      <div class="flex justify-between text-sm text-gray-600">
-        <span>餐饮</span>
-        <span class="text-red-500 font-medium">¥1,800</span>
+    <!-- 分类资产卡片 -->
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-white rounded-xl shadow p-4">
+        <div class="text-sm text-gray-500">💰 流动资产</div>
+        <div class="text-blue-500 text-lg font-bold">¥12,000</div>
       </div>
-      <div class="flex justify-between text-sm text-gray-600">
-        <span>交通</span>
-        <span class="text-red-500 font-medium">¥650</span>
+      <div class="bg-white rounded-xl shadow p-4">
+        <div class="text-sm text-gray-500">📈 投资资产</div>
+        <div class="text-green-500 text-lg font-bold">¥25,000</div>
       </div>
-      <div class="flex justify-between text-sm text-gray-600">
-        <span>住房</span>
-        <span class="text-red-500 font-medium">¥2,000</span>
+      <div class="bg-white rounded-xl shadow p-4">
+        <div class="text-sm text-gray-500">💳 数字资产</div>
+        <div class="text-purple-500 text-lg font-bold">¥3,000</div>
       </div>
-      <div class="flex justify-between text-sm text-gray-600">
-        <span>娱乐</span>
-        <span class="text-red-500 font-medium">¥750</span>
+      <div class="bg-white rounded-xl shadow p-4">
+        <div class="text-sm text-gray-500">📦 其他资产</div>
+        <div class="text-gray-500 text-lg font-bold">¥5,000</div>
       </div>
     </div>
   </div>
 
   <script>
-    const ctx = document.getElementById('categoryChart');
-    new Chart(ctx, {
-      type: 'bar',
+    const assetCtx = document.getElementById('assetPieChart');
+    new Chart(assetCtx, {
+      type: 'pie',
       data: {
-        labels: ['餐饮', '交通', '住房', '娱乐'],
+        labels: ['流动资产', '投资资产', '数字资产', '其他资产'],
         datasets: [{
-          label: '支出金额',
-          data: [1800, 650, 2000, 750],
-          backgroundColor: ['#F87171', '#FBBF24', '#60A5FA', '#34D399'],
-          borderRadius: 6
+          label: '资产分布',
+          data: [12000, 25000, 3000, 5000],
+          backgroundColor: ['#3B82F6', '#22C55E', '#8B5CF6', '#9CA3AF'],
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
         plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true }
+          legend: { position: 'bottom' }
         }
       }
     });
