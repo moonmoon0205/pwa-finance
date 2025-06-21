@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>极简理财 - 首页</title>
+  <title>极简理财 - 统计页</title>
   <base href="/pwa-finance/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,66 +11,52 @@
 </head>
 <body class="bg-gray-50 min-h-screen font-sans text-gray-800">
   <div class="max-w-md mx-auto p-4 space-y-6">
-    <!-- 问候语 -->
-    <div class="text-xl font-semibold text-blue-600">👋 你好，欢迎回来！</div>
+    <div class="text-xl font-semibold text-blue-600">📊 收支统计</div>
 
-    <!-- 本月收支卡片 -->
-    <div class="grid grid-cols-3 gap-4">
-      <div class="bg-white rounded-xl shadow p-4 text-center">
-        <div class="text-sm text-gray-500">收入</div>
-        <div class="text-green-500 text-lg font-bold">¥8,000</div>
-      </div>
-      <div class="bg-white rounded-xl shadow p-4 text-center">
-        <div class="text-sm text-gray-500">支出</div>
-        <div class="text-red-500 text-lg font-bold">¥5,200</div>
-      </div>
-      <div class="bg-white rounded-xl shadow p-4 text-center">
-        <div class="text-sm text-gray-500">结余</div>
-        <div class="text-blue-500 text-lg font-bold">¥2,800</div>
-      </div>
-    </div>
-
-    <!-- 快捷入口 -->
-    <div class="grid grid-cols-3 gap-3 text-center">
-      <button class="bg-blue-100 text-blue-600 rounded-xl p-3 text-sm hover:bg-blue-200">＋记账</button>
-      <button class="bg-green-100 text-green-600 rounded-xl p-3 text-sm hover:bg-green-200">查看资产</button>
-      <button class="bg-yellow-100 text-yellow-600 rounded-xl p-3 text-sm hover:bg-yellow-200">财务分析</button>
-    </div>
-
-    <!-- 收支趋势图表 -->
+    <!-- 分类支出图表 -->
     <div class="bg-white rounded-xl shadow p-4">
-      <div class="text-sm text-gray-500 mb-2">📈 收支趋势</div>
-      <canvas id="trendChart" height="160"></canvas>
+      <div class="text-sm text-gray-500 mb-2">📂 分类支出概览</div>
+      <canvas id="categoryChart" height="160"></canvas>
+    </div>
+
+    <!-- 分类列表 -->
+    <div class="bg-white rounded-xl shadow p-4 space-y-3">
+      <div class="flex justify-between text-sm text-gray-600">
+        <span>餐饮</span>
+        <span class="text-red-500 font-medium">¥1,800</span>
+      </div>
+      <div class="flex justify-between text-sm text-gray-600">
+        <span>交通</span>
+        <span class="text-red-500 font-medium">¥650</span>
+      </div>
+      <div class="flex justify-between text-sm text-gray-600">
+        <span>住房</span>
+        <span class="text-red-500 font-medium">¥2,000</span>
+      </div>
+      <div class="flex justify-between text-sm text-gray-600">
+        <span>娱乐</span>
+        <span class="text-red-500 font-medium">¥750</span>
+      </div>
     </div>
   </div>
 
   <script>
-    const ctx = document.getElementById('trendChart');
+    const ctx = document.getElementById('categoryChart');
     new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
-        datasets: [
-          {
-            label: '收入',
-            data: [6000, 6500, 7000, 8000, 8200, 8500],
-            borderColor: '#00B42A',
-            fill: false,
-            tension: 0.4
-          },
-          {
-            label: '支出',
-            data: [3000, 3200, 4000, 5000, 5100, 5200],
-            borderColor: '#F53F3F',
-            fill: false,
-            tension: 0.4
-          }
-        ]
+        labels: ['餐饮', '交通', '住房', '娱乐'],
+        datasets: [{
+          label: '支出金额',
+          data: [1800, 650, 2000, 750],
+          backgroundColor: ['#F87171', '#FBBF24', '#60A5FA', '#34D399'],
+          borderRadius: 6
+        }]
       },
       options: {
         responsive: true,
         plugins: {
-          legend: { display: true }
+          legend: { display: false }
         },
         scales: {
           y: { beginAtZero: true }
